@@ -5,7 +5,7 @@
    Incrémenter CACHE_VERSION à chaque mise à jour des fichiers.
    ===================================================================== */
 
-const CACHE_VERSION = 'budapest-v1';
+const CACHE_VERSION = 'budapest-v2';
 
 const ASSETS = [
   './',

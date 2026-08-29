@@ -70,9 +70,53 @@ boutons : **Détail**, **Modifier**, **Supprimer**.
 - **Commentaires et précisions** issus du programme ;
 - **Mes notes** : zone de saisie libre, enregistrée automatiquement.
 
+Les **notes pratiques** de l'accueil sont modifiables : bouton *Modifier* à côté du
+titre, une note par ligne.
+
 ### Réglages
-Bouton **Options** sur l'accueil : apparence (automatique / clair / sombre) et
-**restauration du programme d'origine**, qui efface toutes les modifications.
+Bouton **Options** sur l'accueil : apparence (automatique / clair / sombre), transfert
+vers un autre téléphone (ci-dessous) et **restauration du programme d'origine**, qui
+efface toutes les modifications.
+
+---
+
+## Transférer le programme vers un autre téléphone
+
+L'application ne synchronise rien toute seule. Le transfert est explicite, via
+**Options** :
+
+**Sur le téléphone de départ**
+- **Partager le fichier** — ouvre la feuille de partage du téléphone (Messages, Mail,
+  WhatsApp, AirDrop…) avec un fichier `budapest-programme-AAAA-MM-JJ.json`. Sur les
+  navigateurs de bureau, le fichier est simplement téléchargé.
+- **Copier le programme** — met le même contenu dans le presse-papiers, à coller dans
+  n'importe quelle messagerie.
+
+**Sur le téléphone d'arrivée**
+- **Ouvrir un fichier reçu** ou **Coller un programme**. L'application annonce ce qu'elle
+  a reçu (titre, nombre de jours, d'activités et de notes), puis propose deux issues :
+
+| Choix | Effet |
+| --- | --- |
+| **OK** | Remplace tout le programme par celui reçu — y compris les activités ajoutées et les notes pratiques. |
+| **Annuler** | Ne reprend que les **notes personnelles**, en conservant votre programme. Une note déjà écrite localement n'est jamais écrasée : celle reçue est ajoutée à la suite, précédée de « Reçu de l'autre téléphone ». |
+
+Un contenu qui n'est pas un programme valide est refusé avec un message explicite, sans
+rien modifier.
+
+### Mettre à jour le programme de référence sur GitHub
+
+Le fichier exporté contient tout le séjour. Pour qu'il devienne le programme d'origine
+(celui que retrouve le bouton *Restaurer*) :
+
+1. exporter le fichier depuis le téléphone et le récupérer sur l'ordinateur ;
+2. reporter son contenu dans l'objet `SEED` de [`js/data.js`](js/data.js) — la structure
+   est identique, à l'enveloppe `format` / `version` / `exportedAt` près ;
+3. incrémenter `CACHE_VERSION` dans [`sw.js`](sw.js) et renvoyer les fichiers sur GitHub.
+
+Attention : les téléphones qui ont déjà des modifications locales gardent les leurs. Ils
+doivent passer par *Options → Restaurer le programme d'origine* pour récupérer la
+nouvelle version publiée.
 
 ---
 
