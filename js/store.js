@@ -63,6 +63,102 @@ const Store = (() => {
     return state;
   }
 
+  /* ---------- transfert entre appareils ---------- */
+
+  const EXPORT_FORMAT = 'voyage-budapest';
+
+  /** Le programme complet, sous forme de texte JSON prêt à être partagé. */
+  function exportText() {
+    return JSON.stringify({
+      format: EXPORT_FORMAT,
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      trip: state.trip,
+      days: state.days
+    }, null, 2);
+  }
+
+  const countActivities = (days) => days.reduce((n, d) => n + d.activities.length, 0);
+  const countNotes = (days) =>
+    days.reduce((n, d) => n + d.activities.filter((a) => (a.notes || '').trim()).length, 0);
+
+  /**
+   * Analyse un contenu reçu sans rien modifier.
+   * @returns {{ok:true, data:object, resume:object} | {ok:false, error:string}}
+   */
+  function parseImport(text) {
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch (e) {
+      return { ok: false, error: 'Contenu illisible : ce n’est pas un programme exporté par l’application.' };
+    }
+    const src = parsed && Array.isArray(parsed.days) ? parsed : null;
+    if (!src) return { ok: false, error: 'Aucun programme trouvé dans ce contenu.' };
+    if (!src.days.length) return { ok: false, error: 'Ce programme ne contient aucun jour.' };
+
+    const invalide = src.days.find((d) => !d.id || !Array.isArray(d.activities));
+    if (invalide) return { ok: false, error: 'La structure des jours est incomplète : import annulé.' };
+
+    return {
+      ok: true,
+      data: src,
+      resume: {
+        titre: (src.trip && src.trip.title) || 'Programme',
+        jours: src.days.length,
+        activites: countActivities(src.days),
+        notes: countNotes(src.days),
+        date: src.exportedAt ? src.exportedAt.slice(0, 10) : null
+      }
+    };
+  }
+
+  /** Remplace intégralement le programme par celui reçu. */
+  function importReplace(src) {
+    state = {
+      version: 1,
+      trip: clone(src.trip || state.trip),
+      days: clone(src.days)
+    };
+    state.days.forEach(sortActivities);
+    sortDays();
+    save();
+    return state;
+  }
+
+  /**
+   * Ne reprend que les notes personnelles, appariées par identifiant d'activité.
+   * Une note déjà présente localement n'est jamais écrasée : la note reçue est
+   * ajoutée à la suite.
+   * @returns {number} nombre d'activités enrichies
+   */
+  function importNotes(src) {
+    const recues = new Map();
+    src.days.forEach((d) =>
+      d.activities.forEach((a) => {
+        if ((a.notes || '').trim()) recues.set(a.id, a.notes.trim());
+      })
+    );
+
+    let n = 0;
+    state.days.forEach((d) =>
+      d.activities.forEach((a) => {
+        const recue = recues.get(a.id);
+        if (!recue) return;
+        const locale = (a.notes || '').trim();
+        if (!locale) {
+          a.notes = recue;
+          n++;
+        } else if (!locale.includes(recue)) {
+          a.notes = locale + '\n\n— Reçu de l’autre téléphone :\n' + recue;
+          n++;
+        }
+      })
+    );
+    if (n) save();
+    return n;
+  }
+
   /* ---------- lecture ---------- */
 
   const getState = () => state;
@@ -74,6 +170,15 @@ const Store = (() => {
     if (!day) return null;
     const activity = day.activities.find((a) => a.id === actId) || null;
     return activity ? { day, activity } : null;
+  }
+
+  /* ---------- écriture : voyage ---------- */
+
+  /** Met à jour les informations générales du séjour (titre, notes pratiques…). */
+  function updateTrip(patch) {
+    Object.assign(state.trip, patch);
+    save();
+    return state.trip;
   }
 
   /* ---------- écriture : jours ---------- */
@@ -180,8 +285,9 @@ const Store = (() => {
 
   return {
     load, save, reset,
+    exportText, parseImport, importReplace, importNotes,
     getState, getDays, getDay, getActivity,
-    updateDay,
+    updateTrip, updateDay,
     addActivity, updateActivity, removeActivity, moveActivity,
     addLink, updateLink, removeLink,
     minutes, uid

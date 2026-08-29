@@ -112,7 +112,7 @@ function openSheet(title, bodyHtml, opts = {}) {
       </div>
       <div class="sheet__body">${bodyHtml}</div>
       <div class="sheet__foot">
-        <button type="button" class="btn" data-close>Annuler</button>
+        ${opts.hideCancel ? '' : '<button type="button" class="btn" data-close>Annuler</button>'}
         <button type="button" class="btn btn--primary" data-ok>${esc(opts.okLabel || 'Enregistrer')}</button>
       </div>
     </form>`;
@@ -216,16 +216,48 @@ function viewHome() {
       <h2 class="section-title">Programme jour par jour</h2>
       ${cards}
 
-      ${notes ? `
+      <div class="section-head">
         <h2 class="section-title">Notes pratiques</h2>
-        <div class="card card--muted">
-          <ul class="notes-list">${notes}</ul>
-        </div>` : ''}
+        <button class="btn btn--ghost btn--sm" id="btn-notes">
+          ${notes ? 'Modifier' : '+ Ajouter'}
+        </button>
+      </div>
+      <div class="card card--muted">
+        ${notes
+          ? `<ul class="notes-list">${notes}</ul>`
+          : '<p class="empty">Aucune note pour le moment. Hôtel, vols, numéros utiles, adresses de secours…</p>'}
+      </div>
     </main>`;
 }
 
 function bindHome() {
   $('#btn-menu')?.addEventListener('click', openOptions);
+  $('#btn-notes')?.addEventListener('click', openNotesForm);
+}
+
+/** Édition des notes pratiques : une ligne = une note. */
+function openNotesForm() {
+  const trip = Store.getState().trip;
+
+  openSheet('Notes pratiques', `
+    <div class="field">
+      <label for="f-notes">Une note par ligne</label>
+      <textarea id="f-notes" name="notes" rows="10"
+                placeholder="Hôtel : …&#10;Vols : …&#10;Numéro de la compagnie : …">${esc((trip.notes || []).join('\n'))}</textarea>
+      <div class="hint">Les lignes vides sont ignorées. Chaque ligne apparaît comme
+      une puce sur l’accueil.</div>
+    </div>`, {
+    okLabel: 'Enregistrer',
+    onOk: (form) => {
+      const notes = val(form, 'notes')
+        .split('\n')
+        .map((l) => l.trim())
+        .filter(Boolean);
+      Store.updateTrip({ notes });
+      render();
+      toast(notes.length ? 'Notes enregistrées' : 'Notes effacées');
+    }
+  });
 }
 
 function openOptions() {
@@ -239,20 +271,65 @@ function openOptions() {
       </select>
     </div>
     <div class="card card--muted" style="margin-top:14px">
+      <div class="card__label">Envoyer vers un autre téléphone</div>
+      <p class="body-text">Le programme complet, avec vos modifications et vos notes.</p>
+      <button type="button" class="btn btn--block" id="opt-share"
+              style="margin-top:10px">📤 Partager le fichier</button>
+      <button type="button" class="btn btn--block" id="opt-copy"
+              style="margin-top:8px">📋 Copier le programme</button>
+      <div class="hint">Le fichier obtenu peut aussi être déposé sur GitHub pour
+      devenir le programme de référence.</div>
+    </div>
+
+    <div class="card card--muted" style="margin-top:10px">
+      <div class="card__label">Recevoir d’un autre téléphone</div>
+      <input type="file" id="opt-file" accept="application/json,.json" hidden>
+      <button type="button" class="btn btn--block" id="opt-open">📂 Ouvrir un fichier reçu</button>
+      <button type="button" class="btn btn--block" id="opt-paste"
+              style="margin-top:8px">📋 Coller un programme</button>
+    </div>
+
+    <div class="card card--muted" style="margin-top:10px">
       <div class="card__label">Réinitialiser</div>
       <p class="body-text">Efface toutes vos modifications et restaure le programme d’origine
       issu du document de voyage.</p>
       <button type="button" class="btn btn--danger btn--block" id="opt-reset"
               style="margin-top:10px">Restaurer le programme d’origine</button>
     </div>
+
     <p class="hint" style="margin-top:14px">
       Vos modifications sont enregistrées uniquement sur cet appareil. L’application
       fonctionne sans connexion internet.
     </p>`, {
     okLabel: 'Fermer',
+    hideCancel: true,
+    noFocus: true,
     onOpen: (form) => {
       form.elements.theme.value = localStorage.getItem('voyage-app::theme') || 'auto';
       form.elements.theme.addEventListener('change', (e) => applyTheme(e.target.value));
+
+      $('#opt-share', form).addEventListener('click', shareProgramme);
+      $('#opt-copy', form).addEventListener('click', copyProgramme);
+
+      const file = $('#opt-file', form);
+      $('#opt-open', form).addEventListener('click', () => file.click());
+      file.addEventListener('change', async () => {
+        const f = file.files && file.files[0];
+        if (!f) return;
+        handleImport(await f.text());
+        file.value = '';
+      });
+
+      $('#opt-paste', form).addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (text) handleImport(text);
+          else toast('Presse-papiers vide');
+        } catch {
+          toast('Lecture du presse-papiers refusée — utilisez « Ouvrir un fichier »');
+        }
+      });
+
       $('#opt-reset', form).addEventListener('click', () => {
         if (!confirm('Restaurer le programme d’origine ? Toutes vos modifications et notes seront perdues.')) return;
         Store.reset();
@@ -263,6 +340,83 @@ function openOptions() {
     },
     onOk: () => {}
   });
+}
+
+/* ---------------------------------------------------------------------
+   Transfert du programme d'un téléphone à l'autre
+   ------------------------------------------------------------------ */
+
+function exportFileName() {
+  const d = new Date().toISOString().slice(0, 10);
+  return `budapest-programme-${d}.json`;
+}
+
+/** Partage le programme via la feuille de partage du téléphone, sinon le télécharge. */
+async function shareProgramme() {
+  const text = Store.exportText();
+  const name = exportFileName();
+
+  try {
+    const file = new File([text], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Programme Budapest' });
+      return;
+    }
+  } catch (e) {
+    if (e && e.name === 'AbortError') return; // partage annulé par l'utilisateur
+  }
+
+  try {
+    const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    // Certains navigateurs intégrés (messageries, aperçus) ignorent silencieusement
+    // le téléchargement : on ne peut pas le savoir ici, d'où la formulation prudente.
+    toast('Export lancé — si rien ne se passe, utilisez « Copier le programme »');
+  } catch {
+    toast('Partage indisponible ici — utilisez « Copier le programme »');
+  }
+}
+
+async function copyProgramme() {
+  const text = Store.exportText();
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Programme copié — collez-le dans un message');
+  } catch {
+    toast('Copie refusée par le navigateur');
+  }
+}
+
+/** Analyse un contenu reçu, puis demande quoi en faire. */
+function handleImport(text) {
+  const res = Store.parseImport(text);
+  if (!res.ok) { alert(res.error); return; }
+
+  const r = res.resume;
+  const origine = r.date ? `\nExporté le ${fmtDate(r.date)}.` : '';
+  const message =
+    `Programme reçu : « ${r.titre} »\n` +
+    `${r.jours} jours, ${r.activites} activités, ${r.notes} note(s) personnelle(s).${origine}\n\n` +
+    `OK  →  remplacer tout votre programme par celui-ci.\n` +
+    `Annuler  →  ne reprendre que les notes personnelles, en gardant votre programme.`;
+
+  if (confirm(message)) {
+    Store.importReplace(res.data);
+    $('#sheet').close();
+    render();
+    toast('Programme remplacé');
+  } else {
+    const n = Store.importNotes(res.data);
+    $('#sheet').close();
+    render();
+    toast(n ? `${n} note(s) reprise(s)` : 'Aucune note à reprendre');
+  }
 }
 
 function applyTheme(mode) {

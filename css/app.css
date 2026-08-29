@@ -152,6 +152,16 @@ main {
 }
 .section-title:first-child { margin-top: 4px; }
 
+/* Titre de section accompagné d'une action à droite */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.section-head .section-title { flex: 1 1 auto; }
+.btn--sm { padding: 5px 10px; font-size: 12.5px; }
+
 /* ---------- Bandeau du voyage (accueil) ---------- */
 .hero {
   border-radius: var(--radius);
