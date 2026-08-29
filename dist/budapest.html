@@ -1,0 +1,2140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Budapest — Programme de séjour</title>
+<meta name="description" content="Le plan de visite de Budapest dans votre poche : programme jour par jour, fiches détaillées, notes personnelles.">
+<meta name="theme-color" content="#23405c">
+<style>
+/* =====================================================================
+   app.css — Feuille de style unique (mobile first)
+   ===================================================================== */
+
+/* ---------- Thème ---------- */
+:root {
+  --bg:        #eef0f3;
+  --surface:   #ffffff;
+  --surface-2: #f6f7f9;
+  --border:    #dbe0e6;
+  --text:      #171a1e;
+  --muted:     #60686f;
+  --accent:    #a63f26;
+  --accent-2:  #82301c;
+  --on-accent: #ffffff;
+  --header:    #23405c;
+  --on-header: #eef0f3;
+  --shadow:    0 1px 2px rgba(23, 26, 30, .05), 0 4px 14px rgba(23, 26, 30, .07);
+  --danger:    #c0392b;
+  --danger-border: #e3b7b1;
+  --radius:    14px;
+  --safe-b:    env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:        #14161a;
+    --surface:   #1c1f24;
+    --surface-2: #23272e;
+    --border:    #31363f;
+    --text:      #e6e9ec;
+    --muted:     #99a2ab;
+    --accent:    #e2765b;
+    --accent-2:  #f0917a;
+    --on-accent: #14161a;
+    --header:    #1a2836;
+    --on-header: #e6e9ec;
+    --shadow:    0 1px 2px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .35);
+    --danger:    #f08375;
+    --danger-border: #6d3b36;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:        #14161a;
+  --surface:   #1c1f24;
+  --surface-2: #23272e;
+  --border:    #31363f;
+  --text:      #e6e9ec;
+  --muted:     #99a2ab;
+  --accent:    #e2765b;
+  --accent-2:  #f0917a;
+  --on-accent: #14161a;
+  --header:    #1a2836;
+  --on-header: #e6e9ec;
+  --shadow:    0 1px 2px rgba(0, 0, 0, .3), 0 4px 14px rgba(0, 0, 0, .35);
+  --danger:    #f08375;
+  --danger-border: #6d3b36;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.25; font-weight: 650; }
+p { margin: 0 0 .75em; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--accent); }
+
+/* ---------- En-tête ---------- */
+.appbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 14px 12px;
+  background: var(--header);
+  color: var(--on-header);
+}
+
+.appbar__back {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  color: inherit;
+  font-size: 19px;
+  cursor: pointer;
+}
+.appbar__back:active { background: rgba(255, 255, 255, .25); }
+
+.appbar__titles { flex: 1 1 auto; min-width: 0; }
+.appbar__title {
+  font-size: 17px;
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.appbar__sub {
+  font-size: 12.5px;
+  opacity: .72;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.appbar__action {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 11px;
+  background: rgba(255, 255, 255, .14);
+  color: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.appbar__action:active { background: rgba(255, 255, 255, .26); }
+
+/* ---------- Mise en page ---------- */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px 14px calc(32px + var(--safe-b));
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 26px 2px 10px;
+}
+.section-title:first-child { margin-top: 4px; }
+
+/* Titre de section accompagné d'une action à droite */
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.section-head .section-title { flex: 1 1 auto; }
+.btn--sm { padding: 5px 10px; font-size: 12.5px; }
+
+/* ---------- Bandeau du voyage (accueil) ---------- */
+.hero {
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  background: linear-gradient(140deg, var(--header), #3a5f80);
+  color: #eef0f3;
+  box-shadow: var(--shadow);
+}
+.hero__title { font-size: 27px; letter-spacing: -.02em; }
+.hero__dates { margin-top: 4px; font-size: 14px; opacity: .85; }
+.hero__meta {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, .18);
+  font-size: 13px;
+  opacity: .9;
+}
+
+/* ---------- Carte « jour » (accueil) ---------- */
+.daycard {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.daycard:active { background: var(--surface-2); }
+
+.daycard__head {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+}
+.daycard__num {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.daycard__date {
+  flex: 1 1 auto;
+  font-size: 16.5px;
+  font-weight: 650;
+}
+.daycard__chevron { flex: 0 0 auto; color: var(--muted); font-size: 18px; }
+
+.daycard__sub {
+  margin-top: 3px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.daycard__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 11px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 3px 9px 3px 7px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ---------- Ligne d'activité (page jour) ---------- */
+.act {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 13px;
+  margin-bottom: 10px;
+}
+
+.act__main { display: flex; gap: 12px; }
+
+.act__time {
+  flex: 0 0 54px;
+  text-align: center;
+}
+.act__hour { font-size: 15.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.act__dur { margin-top: 2px; font-size: 11.5px; color: var(--muted); }
+
+.act__rule {
+  flex: 0 0 3px;
+  border-radius: 3px;
+  background: var(--type-color, var(--border));
+  opacity: .85;
+}
+
+.act__body { flex: 1 1 auto; min-width: 0; }
+
+.act__type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--type-color, var(--muted));
+}
+.act__title { margin-top: 3px; font-size: 16px; font-weight: 650; }
+.act__desc { margin-top: 3px; font-size: 13.5px; color: var(--muted); }
+.act__addr {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  gap: 5px;
+}
+.act__addr span:first-child { flex: 0 0 auto; opacity: .8; }
+
+.act__actions {
+  display: flex;
+  gap: 7px;
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border);
+}
+.act__actions .btn { flex: 1 1 0; text-align: center; padding: 8px 6px; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 7px 12px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn--ghost { background: transparent; }
+.btn--danger { color: var(--danger); border-color: var(--danger-border); background: transparent; }
+.btn--block { display: block; width: 100%; text-align: center; }
+.btn--lg { padding: 12px 16px; font-size: 15px; border-radius: 11px; }
+
+.btn-row { display: flex; gap: 8px; }
+.btn-row > * { flex: 1 1 0; }
+
+/* ---------- Fiche activité ---------- */
+.detail-head {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+.detail-head__type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 4px 11px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--type-color, var(--muted));
+}
+.detail-head__title { margin-top: 10px; font-size: 22px; letter-spacing: -.01em; }
+.detail-head__when {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  padding: 15px;
+}
+.card + .card { margin-top: 10px; }
+.card__label {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.card p, .card .body-text { font-size: 14.5px; }
+.card--muted { background: var(--surface-2); }
+
+.linklist { display: flex; flex-direction: column; gap: 8px; }
+.linkrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.linkrow__go {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 9px 11px;
+  background: var(--surface-2);
+  text-decoration: none;
+  color: var(--text);
+}
+.linkrow__label { font-size: 14px; font-weight: 600; }
+.linkrow__url {
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.iconbtn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.empty {
+  font-size: 13.5px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* ---------- Formulaires ---------- */
+.field { margin-bottom: 13px; }
+.field:last-child { margin-bottom: 0; }
+.field > label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--muted);
+  margin-bottom: 5px;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 11px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px; /* >=16px : évite le zoom automatique sur iOS */
+}
+.field textarea { resize: vertical; min-height: 84px; line-height: 1.45; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+.field--split { display: flex; gap: 10px; }
+.field--split > div { flex: 1 1 0; }
+
+.hint { margin-top: 5px; font-size: 12px; color: var(--muted); }
+
+/* ---------- Feuille modale ---------- */
+dialog.sheet {
+  width: 100%;
+  max-width: 560px;
+  margin: auto auto 0;
+  border: 0;
+  border-radius: 18px 18px 0 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, .3);
+}
+@media (min-width: 600px) {
+  dialog.sheet { margin: auto; border-radius: 18px; }
+}
+dialog.sheet::backdrop { background: rgba(0, 0, 0, .45); }
+
+.sheet__head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 16px 11px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.sheet__title { font-size: 16.5px; font-weight: 650; }
+.sheet__body { padding: 15px 16px; max-height: 62vh; overflow-y: auto; }
+.sheet__foot {
+  display: flex;
+  gap: 9px;
+  padding: 12px 16px calc(14px + var(--safe-b));
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.sheet__foot > * { flex: 1 1 0; }
+
+/* ---------- Divers ---------- */
+.notes-list { margin: 0; padding-left: 18px; font-size: 14px; }
+.notes-list li { margin-bottom: 7px; }
+.notes-list li:last-child { margin-bottom: 0; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(22px + var(--safe-b));
+  transform: translate(-50%, 12px);
+  z-index: 60;
+  max-width: 88vw;
+  padding: 11px 16px;
+  border-radius: 11px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 14px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+.install-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 12px 13px;
+  margin-bottom: 14px;
+  font-size: 13.5px;
+}
+.install-banner p { flex: 1 1 auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* ---------- Focus clavier ---------- */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.appbar :where(a, button):focus-visible { outline-color: #ffffff; }
+</style>
+</head>
+<body>
+
+  <div id="app"></div>
+  <dialog class="sheet" id="sheet"></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   data.js — Programme de référence (données « usine »)
+   Source : « Programme Budapest 5-9 octobre 2026.pdf »
+
+   Ces données servent de point de départ. Toute modification faite dans
+   l'application est enregistrée dans le navigateur (localStorage) et peut
+   être annulée via « Réinitialiser le programme ».
+   ===================================================================== */
+
+const TYPES = {
+  transport: { label: 'Transport',   icon: '✈️', color: '#5b7cfa' },
+  visite:    { label: 'Visite',      icon: '🏛️', color: '#c8842b' },
+  repas:     { label: 'Repas',       icon: '🍽️', color: '#d4543f' },
+  bienetre:  { label: 'Bien-être',   icon: '♨️', color: '#0f9d8f' },
+  balade:    { label: 'Balade',      icon: '🚶', color: '#6aa84f' },
+  croisiere: { label: 'Croisière',   icon: '🚢', color: '#3d8fc6' },
+  shopping:  { label: 'Shopping',    icon: '🛍️', color: '#a45bb5' },
+  libre:     { label: 'Temps libre', icon: '⏳', color: '#8a8f98' }
+};
+
+const SEED = {
+  version: 1,
+  trip: {
+    title: 'Budapest',
+    subtitle: 'Programme de séjour',
+    startDate: '2026-10-05',
+    endDate: '2026-10-09',
+    hotel: 'Maison Bistro & Hotel 4★ — Országház utca 17, quartier du Château (Buda)',
+    notes: [
+      'Hôtel : Maison Bistro & Hotel 4★, Országház utca 17, quartier du Château (Buda).',
+      'Vols EasyJet : aller LYS 10:25 → BUD 12:20 ; retour BUD 21:25 → LYS 23:30. (Les dates 21/09 et 25/09 figurant sur le programme d’origine sont à vérifier : le séjour est annoncé du 5 au 9 octobre.)',
+      'Bains Gellért fermés jusqu’en 2028 (rénovation) — remplacés par Rudas et Széchenyi.',
+      'Guide privé francophone : à réserver dès maintenant pour le mardi matin (créneaux limités en haute saison).'
+    ]
+  },
+  days: [
+    {
+      id: 'd1',
+      date: '2026-10-05',
+      title: 'Arrivée',
+      activities: [
+        {
+          id: 'd1a1', time: '12:20', duration: 100, type: 'transport',
+          title: 'Atterrissage & transfert',
+          description: 'Vol EasyJet LYS → BUD, transfert vers l’hôtel (~30-40 min)',
+          details: 'Atterrissage à Budapest Ferenc Liszt (BUD) à 12:20. Récupération des bagages puis transfert vers le quartier du Château, rive Buda. Compter 30 à 40 minutes selon le trafic. Options : taxi officiel Főtaxi (borne à la sortie du terminal 2), navette 100E vers le centre, ou transfert privé réservé à l’avance.',
+          address: 'Aéroport Budapest Ferenc Liszt, Terminal 2, 1185 Budapest',
+          links: [
+            { label: 'EasyJet — suivi du vol', url: 'https://www.easyjet.com' },
+            { label: 'Aéroport de Budapest', url: 'https://www.bud.hu/en' }
+          ],
+          comments: 'Prévoir des forints (HUF) ou une carte sans frais. Le taxi officiel se commande à la borne — ne pas suivre les rabatteurs.',
+          notes: ''
+        },
+        {
+          id: 'd1a2', time: '14:00', duration: 90, type: 'repas',
+          title: 'Installation & déjeuner léger',
+          description: 'Arrivée au Maison Bistro & Hotel, pause rapide à proximité',
+          details: 'Dépôt des bagages et enregistrement à l’hôtel, en plein cœur du quartier du Château. Déjeuner léger dans une des adresses de la rue Országház ou sur la place Szentháromság, à deux pas.',
+          address: 'Maison Bistro & Hotel, Országház utca 17, 1014 Budapest',
+          links: [
+            { label: 'Maison Bistro & Hotel', url: 'https://maisonbudapest.hu' }
+          ],
+          comments: 'Si la chambre n’est pas prête, l’hôtel garde les bagages : on peut enchaîner directement sur la visite.',
+          notes: ''
+        },
+        {
+          id: 'd1a3', time: '15:30', duration: 90, type: 'visite',
+          title: 'Bastion des Pêcheurs & Église Matthias',
+          description: 'Cœur du quartier du Château, vue imprenable sur Pest et le Danube',
+          details: 'Le Bastion des Pêcheurs (Halászbástya) et ses sept tourelles néo-romanes offrent le plus beau panorama sur le Parlement et le Danube. Juste à côté, l’église Matthias (Mátyás-templom) et son toit de tuiles vernissées Zsolnay : intérieur richement peint, lieu du couronnement des rois de Hongrie.',
+          address: 'Szentháromság tér, 1014 Budapest',
+          links: [
+            { label: 'Bastion des Pêcheurs', url: 'https://www.fishermansbastion.com' },
+            { label: 'Église Matthias', url: 'https://matyas-templom.hu' }
+          ],
+          comments: 'Les terrasses basses du Bastion sont gratuites ; seules les tourelles hautes sont payantes. L’église a un billet séparé. Lumière de fin d’après-midi idéale pour les photos.',
+          notes: ''
+        },
+        {
+          id: 'd1a4', time: '17:00', duration: 150, type: 'balade',
+          title: 'Château de Buda & ruelles pavées',
+          description: 'Palais Royal (extérieur), rue Úri utca, ambiance médiévale',
+          details: 'Descente vers le Palais Royal (Budavári Palota) par les ruelles pavées du quartier. Façades et cours intérieures visibles librement. Les rues Úri utca et Táncsics Mihály conservent portes gothiques et maisons baroques. Belle vue depuis la terrasse du palais au coucher du soleil.',
+          address: 'Budavári Palota, Szent György tér 2, 1014 Budapest',
+          links: [
+            { label: 'Château de Buda', url: 'https://www.budacastlebudapest.com' }
+          ],
+          comments: 'Balade extérieure : les musées (Galerie nationale, Musée d’histoire) demanderaient une demi-journée supplémentaire.',
+          notes: ''
+        },
+        {
+          id: 'd1a5', time: '19:30', duration: 120, type: 'repas',
+          title: 'Dîner',
+          description: 'Baltazár ou Aranybástya — cuisine hongroise raffinée, quartier du Château',
+          details: 'Deux options à quelques minutes à pied de l’hôtel. Baltazár : grill au charbon de bois, ambiance bistrot chic. Aranybástya : cuisine hongroise contemporaine avec vue sur la place Szentháromság.',
+          address: 'Baltazár — Országház u. 31, 1014 Budapest',
+          links: [
+            { label: 'Baltazár', url: 'https://baltazarbudapest.com' },
+            { label: 'Aranybástya', url: 'https://aranybastya.hu' }
+          ],
+          comments: 'Réservation conseillée, surtout le week-end.',
+          notes: ''
+        }
+      ]
+    },
+    {
+      id: 'd2',
+      date: '2026-10-06',
+      title: '',
+      activities: [
+        {
+          id: 'd2a1', time: '09:00', duration: 240, type: 'visite',
+          title: 'Visite guidée privée francophone',
+          description: 'Parlement, Basilique St-Étienne, Pont des Chaînes, Place des Héros',
+          details: 'Grande boucle des incontournables de Pest avec un guide francophone : le Parlement (Országház, plus grand bâtiment de Hongrie), la Basilique Saint-Étienne et sa coupole panoramique, le Pont des Chaînes (Széchenyi lánchíd) et la Place des Héros (Hősök tere) avec son monument du Millénaire. Programme à ajuster avec le guide.',
+          address: 'Départ : Kossuth Lajos tér 1-3, 1055 Budapest (Parlement)',
+          links: [
+            { label: 'Parlement hongrois — billets', url: 'https://www.parlament.hu' },
+            { label: 'Basilique Saint-Étienne', url: 'https://www.bazilika.biz' }
+          ],
+          comments: 'À RÉSERVER EN PRIORITÉ : créneaux de guides francophones limités. La visite intérieure du Parlement nécessite un billet horodaté réservé séparément.',
+          notes: ''
+        },
+        {
+          id: 'd2a2', time: '13:00', duration: 90, type: 'repas',
+          title: 'Déjeuner rapide',
+          description: 'Kiosk, Március 15. tér — menu du jour abordable, terrasse animée',
+          details: 'Kiosk occupe un ancien pavillon au pied de l’église de la Ville, face au Danube. Menu du jour à prix doux le midi, grande terrasse. Parfait entre deux visites.',
+          address: 'Kiosk, Március 15. tér 4, 1056 Budapest',
+          links: [
+            { label: 'Kiosk Budapest', url: 'https://kioskbudapest.hu' }
+          ],
+          comments: 'Aux beaux jours la terrasse se remplit vite : arriver avant 13h ou réserver.',
+          notes: ''
+        },
+        {
+          id: 'd2a3', time: '15:00', duration: 180, type: 'bienetre',
+          title: 'Bains Rudas',
+          description: 'Bain turc ottoman du XVIᵉ s., rooftop panoramique sur le Danube',
+          details: 'Les bains Rudas conservent leur coupole ottomane du XVIᵉ siècle percée de vitraux colorés, au-dessus du bassin octogonal. Le bassin extérieur sur le toit offre une vue plongeante sur le Danube et le pont Élisabeth. Espace bien-être mixte (maillot obligatoire) ; le bain turc historique est réservé aux hommes ou aux femmes selon les jours, sauf le week-end où il est mixte.',
+          address: 'Rudas Fürdő, Döbrentei tér 9, 1013 Budapest',
+          links: [
+            { label: 'Bains Rudas — horaires et tarifs', url: 'https://en.rudasfurdo.hu' }
+          ],
+          comments: 'Vérifier le jour mixte avant d’y aller. Prévoir maillot, serviette et tongs (location sur place). Le rooftop se réserve par créneau.',
+          notes: ''
+        },
+        {
+          id: 'd2a4', time: '19:30', duration: 120, type: 'repas',
+          title: 'Dîner',
+          description: 'Restaurant avec vue sur le Danube et le Parlement illuminé',
+          details: 'Dîner face au Danube pour profiter des illuminations. Options côté Pest le long du quai (Belgrád rakpart, Vigadó tér) ou côté Buda pour la vue sur le Parlement.',
+          address: 'Quais du Danube — à préciser',
+          links: [],
+          comments: 'Adresse à définir. Réserver une table côté fenêtre ou terrasse chauffée.',
+          notes: ''
+        }
+      ]
+    },
+    {
+      id: 'd3',
+      date: '2026-10-07',
+      title: '',
+      activities: [
+        {
+          id: 'd3a1', time: '09:30', duration: 90, type: 'visite',
+          title: 'Quartier juif & Grande Synagogue',
+          description: 'Synagogue de Dohány utca, la plus grande d’Europe',
+          details: 'La synagogue de Dohány utca (1859), de style mauresque, est la plus grande d’Europe et la deuxième au monde. Le billet inclut le musée juif, le cimetière et le jardin du mémorial Raoul Wallenberg avec l’Arbre de vie en métal. Le quartier alentour (VIIᵉ arrondissement) mêle cours d’immeubles, fresques murales et cafés.',
+          address: 'Dohány utcai Zsinagóga, Dohány u. 2, 1074 Budapest',
+          links: [
+            { label: 'Grande Synagogue de Budapest', url: 'https://www.zsido.hu' }
+          ],
+          comments: 'Épaules et genoux couverts ; kippa fournie à l’entrée pour les hommes. Fermée le samedi (shabbat) et lors des fêtes juives.',
+          notes: ''
+        },
+        {
+          id: 'd3a2', time: '11:00', duration: 90, type: 'balade',
+          title: 'Szimpla Kert de jour',
+          description: 'Le ruin bar emblématique, cour végétalisée',
+          details: 'Le premier et le plus célèbre des « ruin bars » : une cour d’immeuble en ruine transformée en bar-labyrinthe, remplie d’objets récupérés, de graffitis et de plantes. Beaucoup plus calme et photogénique en journée qu’en soirée. Un marché fermier s’y tient le dimanche matin.',
+          address: 'Szimpla Kert, Kazinczy u. 14, 1075 Budapest',
+          links: [
+            { label: 'Szimpla Kert', url: 'https://szimpla.hu' }
+          ],
+          comments: 'Entrée libre en journée. Idéal pour un café et des photos avant l’affluence du soir.',
+          notes: ''
+        },
+        {
+          id: 'd3a3', time: '12:30', duration: 90, type: 'repas',
+          title: 'Déjeuner rapide',
+          description: 'Karavan Street Food, juste à côté de Szimpla',
+          details: 'Une cour de food trucks réunissant les classiques hongrois revisités : lángos, burgers, goulash, cuisine végétarienne. Ambiance décontractée : on commande au camion et on mange sur les tables communes.',
+          address: 'Karaván Street Food, Kazinczy u. 18, 1075 Budapest',
+          links: [
+            { label: 'Karaván Street Food', url: 'https://karavanstreetfood.hu' }
+          ],
+          comments: 'Goûter le lángos (galette frite à la crème aigre et fromage) — la spécialité de rue hongroise.',
+          notes: ''
+        },
+        {
+          id: 'd3a4', time: '14:30', duration: 180, type: 'balade',
+          title: 'Île Marguerite',
+          description: 'Balade ou vélo, parc, fontaine musicale, pause détente au bord du Danube',
+          details: 'Île-parc de 2,5 km au milieu du Danube, entièrement piétonne. Fontaine musicale à l’entrée sud, roseraie, ruines d’un couvent dominicain, château d’eau et piste de jogging faisant le tour de l’île. Location de vélos, rosalies et trottinettes sur place.',
+          address: 'Margitsziget, 1138 Budapest',
+          links: [
+            { label: 'Budapest Info — Île Marguerite', url: 'https://www.budapestinfo.hu' }
+          ],
+          comments: 'Accès par le pont Marguerite (tram 4 ou 6). La fontaine musicale joue toutes les heures.',
+          notes: ''
+        },
+        {
+          id: 'd3a5', time: '19:30', duration: 120, type: 'repas',
+          title: 'Dîner',
+          description: 'Dobrumba (cuisine moyen-orientale) ou Zeller, quartier juif',
+          details: 'Dobrumba : mezze et cuisine du Levant, très populaire dans le quartier juif. Zeller Bistro : cuisine hongroise de marché, produits de fermes familiales, belle cave de vins hongrois.',
+          address: 'Dobrumba — Dob u. 20, 1074 Budapest',
+          links: [
+            { label: 'Dobrumba', url: 'https://dobrumba.hu' },
+            { label: 'Zeller Bistro', url: 'https://zellerbistro.hu' }
+          ],
+          comments: 'Les deux affichent complet rapidement : réserver plusieurs jours à l’avance.',
+          notes: ''
+        }
+      ]
+    },
+    {
+      id: 'd4',
+      date: '2026-10-08',
+      title: '',
+      activities: [
+        {
+          id: 'd4a1', time: '08:30', duration: 180, type: 'bienetre',
+          title: 'Bains Széchenyi',
+          description: 'Le plus grand complexe thermal d’Europe — tôt pour éviter l’affluence',
+          details: 'Palais néo-baroque jaune abritant 18 bassins, dont trois immenses bassins extérieurs à 27, 30 et 38 °C. C’est ici que l’on joue aux échecs dans l’eau. Saunas, hammams et bassins intérieurs de températures variées. Arriver à l’ouverture change tout : les bassins sont presque vides et la vapeur au petit matin est spectaculaire.',
+          address: 'Széchenyi Fürdő, Állatkerti körút 9-11, 1146 Budapest',
+          links: [
+            { label: 'Bains Széchenyi — billets', url: 'https://szechenyifurdo.hu' }
+          ],
+          comments: 'Billet en ligne pour éviter la file. Prévoir maillot, serviette, tongs et bonnet de bain pour le bassin sportif. Casier ou cabine au choix.',
+          notes: ''
+        },
+        {
+          id: 'd4a2', time: '11:30', duration: 90, type: 'visite',
+          title: 'Városliget & Château de Vajdahunyad',
+          description: 'Le parc de la ville, juste à côté des bains',
+          details: 'Le Bois de la Ville (Városliget) entoure les bains. En son centre, le château de Vajdahunyad, pastiche architectural construit en 1896 qui réunit styles roman, gothique, Renaissance et baroque de toute la Hongrie. Cour intérieure et lac accessibles librement ; statue d’Anonymus dont on touche la plume porte-bonheur.',
+          address: 'Vajdahunyad vára, Városliget, 1146 Budapest',
+          links: [
+            { label: 'Château de Vajdahunyad', url: 'https://www.mmgm.hu' }
+          ],
+          comments: 'La Place des Héros est à 5 minutes à pied : à combiner si elle n’a pas été vue avec le guide mardi.',
+          notes: ''
+        },
+        {
+          id: 'd4a3', time: '13:00', duration: 90, type: 'repas',
+          title: 'Déjeuner rapide',
+          description: 'Petite adresse près du parc',
+          details: 'Plusieurs options autour du Városliget et le long de l’avenue Andrássy en redescendant vers le centre.',
+          address: 'Quartier Városliget / Andrássy út, 1146 Budapest',
+          links: [],
+          comments: 'Adresse à définir sur place.',
+          notes: ''
+        },
+        {
+          id: 'd4a4', time: '15:30', duration: 150, type: 'visite',
+          title: 'Andrássy út & Opéra',
+          description: 'Avenue classée UNESCO, façades élégantes',
+          details: 'L’avenue Andrássy relie la Place des Héros au centre sur 2,5 km, bordée d’hôtels particuliers néo-Renaissance et de boutiques de luxe — classée au patrimoine mondial de l’UNESCO avec le métro du Millénaire (ligne M1, la plus ancienne du continent) qui court dessous. À mi-parcours, l’Opéra d’État hongrois, restauré, se visite en tour guidé.',
+          address: 'Magyar Állami Operaház, Andrássy út 22, 1061 Budapest',
+          links: [
+            { label: 'Opéra d’État hongrois', url: 'https://www.opera.hu' }
+          ],
+          comments: 'Les visites guidées de l’Opéra partent à heures fixes en fin d’après-midi : vérifier et réserver. Descendre l’avenue à pied et remonter en métro M1.',
+          notes: ''
+        },
+        {
+          id: 'd4a5', time: '18:00', duration: 90, type: 'croisiere',
+          title: 'Croisière au coucher du soleil (optionnel)',
+          description: 'Vue sur le Parlement et les ponts illuminés',
+          details: 'Croisière d’environ une heure sur le Danube au moment où les illuminations s’allument : Parlement, Pont des Chaînes, château de Buda et colline Gellért. Embarquements principaux quai Vigadó tér et Jane Haining rakpart, côté Pest.',
+          address: 'Embarcadère Vigadó tér, 1051 Budapest',
+          links: [
+            { label: 'Legenda City Cruises', url: 'https://www.legenda.hu' }
+          ],
+          comments: 'OPTIONNEL. En octobre le soleil se couche vers 18h15 : le créneau de 18h permet de voir la ville de jour puis illuminée. Prévoir une veste, il fait frais sur le pont.',
+          notes: ''
+        },
+        {
+          id: 'd4a6', time: '20:00', duration: 120, type: 'repas',
+          title: 'Dîner',
+          description: 'Bon resto, à définir',
+          details: 'Dîner libre, côté Pest après la croisière.',
+          address: 'À définir',
+          links: [],
+          comments: 'Adresse à définir.',
+          notes: ''
+        }
+      ]
+    },
+    {
+      id: 'd5',
+      date: '2026-10-09',
+      title: 'Départ',
+      activities: [
+        {
+          id: 'd5a1', time: '09:00', duration: 120, type: 'shopping',
+          title: 'Grand Marché Central',
+          description: 'Nagycsarnok — souvenirs, paprika, spécialités hongroises',
+          details: 'Halle de 1897 à la charpente métallique et au toit de tuiles Zsolnay. Rez-de-chaussée : paprika, saucisson, foie gras, vins de Tokaj, pálinka. Étage : broderies, nappes, souvenirs et comptoirs de lángos. Sous-sol : poissonnerie et conserves.',
+          address: 'Nagyvásárcsarnok, Vámház körút 1-3, 1093 Budapest',
+          links: [
+            { label: 'Grand Marché Central', url: 'https://piaconline.hu' }
+          ],
+          comments: 'Fermé le dimanche. Attention aux liquides (pálinka, vin) si vous n’avez qu’un bagage cabine.',
+          notes: ''
+        },
+        {
+          id: 'd5a2', time: '11:00', duration: 120, type: 'visite',
+          title: 'Colline Gellért & Citadelle',
+          description: 'Vue panoramique d’adieu sur toute la ville',
+          details: 'Montée sur la colline Gellért (235 m) jusqu’à la Citadelle et la Statue de la Liberté. Panorama à 360° sur les deux rives, tous les ponts et le Parlement. Chemins ombragés depuis le pont Élisabeth ou le pont de la Liberté ; environ 25 minutes de montée.',
+          address: 'Citadella sétány 1, 1118 Budapest',
+          links: [
+            { label: 'Budapest Info — Colline Gellért', url: 'https://www.budapestinfo.hu' }
+          ],
+          comments: 'Bonnes chaussures : la montée est raide. Le bus 27 monte presque au sommet depuis Móricz Zsigmond körtér.',
+          notes: ''
+        },
+        {
+          id: 'd5a3', time: '13:00', duration: 120, type: 'repas',
+          title: 'Déjeuner rapide',
+          description: 'Dernier repas hongrois, secteur Gellért/Tabán',
+          details: 'Déjeuner au pied de la colline, dans le quartier Tabán ou près du pont de la Liberté.',
+          address: 'Quartier Gellért / Tabán, 1118 Budapest',
+          links: [],
+          comments: 'Dernière occasion pour un goulash ou un lángos.',
+          notes: ''
+        },
+        {
+          id: 'd5a4', time: '15:00', duration: 150, type: 'libre',
+          title: 'Temps libre / Váci utca',
+          description: 'Derniers achats, retour à l’hôtel pour les bagages',
+          details: 'Váci utca est la rue piétonne commerçante du centre de Pest, entre la place Vörösmarty et le Grand Marché. Derniers achats, puis retour à l’hôtel pour récupérer les bagages.',
+          address: 'Váci utca, 1052 Budapest',
+          links: [],
+          comments: 'Prévoir large pour le retour à l’hôtel côté Buda avant le transfert.',
+          notes: ''
+        },
+        {
+          id: 'd5a5', time: '17:30', duration: 240, type: 'transport',
+          title: 'Transfert aéroport',
+          description: 'Vol retour 21:25 (BUD → LYS)',
+          details: 'Transfert vers l’aéroport Ferenc Liszt, terminal 2. Compter 40 à 50 minutes aux heures de pointe. Enregistrement et contrôles : être au terminal vers 19:00 pour un vol à 21:25.',
+          address: 'Aéroport Budapest Ferenc Liszt, Terminal 2, 1185 Budapest',
+          links: [
+            { label: 'EasyJet — enregistrement', url: 'https://www.easyjet.com' }
+          ],
+          comments: 'Dépenser ou changer les forints restants avant les contrôles.',
+          notes: ''
+        }
+      ]
+    }
+  ]
+};
+
+
+/* =====================================================================
+   store.js — État de l'application + persistance locale
+   Le programme vit dans localStorage. Aucune donnée ne quitte le
+   téléphone : l'application fonctionne entièrement hors-ligne.
+   ===================================================================== */
+
+const STORAGE_KEY = 'voyage-app::budapest::v1';
+
+const Store = (() => {
+  let state = null;
+
+  /* ---------- utilitaires ---------- */
+
+  const clone = (o) => JSON.parse(JSON.stringify(o));
+
+  const uid = (prefix) =>
+    prefix + '-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+  /** Minutes depuis minuit, pour trier ; les horaires vides passent en dernier. */
+  const minutes = (hhmm) => {
+    const m = /^(\d{1,2}):(\d{2})$/.exec((hhmm || '').trim());
+    return m ? Number(m[1]) * 60 + Number(m[2]) : 99999;
+  };
+
+  const sortActivities = (day) => {
+    day.activities.sort((a, b) => minutes(a.time) - minutes(b.time));
+  };
+
+  const sortDays = () => {
+    state.days.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  };
+
+  /* ---------- persistance ---------- */
+
+  function load() {
+    let saved = null;
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) saved = JSON.parse(raw);
+    } catch (e) {
+      console.warn('Lecture du stockage impossible, retour au programme d’origine.', e);
+    }
+    state = saved && saved.days && saved.days.length ? saved : clone(SEED);
+    state.days.forEach(sortActivities);
+    sortDays();
+    return state;
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return true;
+    } catch (e) {
+      console.warn('Sauvegarde impossible (stockage plein ou navigation privée).', e);
+      return false;
+    }
+  }
+
+  function reset() {
+    state = clone(SEED);
+    state.days.forEach(sortActivities);
+    save();
+    return state;
+  }
+
+  /* ---------- transfert entre appareils ---------- */
+
+  const EXPORT_FORMAT = 'voyage-budapest';
+
+  /** Le programme complet, sous forme de texte JSON prêt à être partagé. */
+  function exportText() {
+    return JSON.stringify({
+      format: EXPORT_FORMAT,
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      trip: state.trip,
+      days: state.days
+    }, null, 2);
+  }
+
+  const countActivities = (days) => days.reduce((n, d) => n + d.activities.length, 0);
+  const countNotes = (days) =>
+    days.reduce((n, d) => n + d.activities.filter((a) => (a.notes || '').trim()).length, 0);
+
+  /**
+   * Analyse un contenu reçu sans rien modifier.
+   * @returns {{ok:true, data:object, resume:object} | {ok:false, error:string}}
+   */
+  function parseImport(text) {
+    let parsed;
+    try {
+      parsed = JSON.parse(text);
+    } catch (e) {
+      return { ok: false, error: 'Contenu illisible : ce n’est pas un programme exporté par l’application.' };
+    }
+    const src = parsed && Array.isArray(parsed.days) ? parsed : null;
+    if (!src) return { ok: false, error: 'Aucun programme trouvé dans ce contenu.' };
+    if (!src.days.length) return { ok: false, error: 'Ce programme ne contient aucun jour.' };
+
+    const invalide = src.days.find((d) => !d.id || !Array.isArray(d.activities));
+    if (invalide) return { ok: false, error: 'La structure des jours est incomplète : import annulé.' };
+
+    return {
+      ok: true,
+      data: src,
+      resume: {
+        titre: (src.trip && src.trip.title) || 'Programme',
+        jours: src.days.length,
+        activites: countActivities(src.days),
+        notes: countNotes(src.days),
+        date: src.exportedAt ? src.exportedAt.slice(0, 10) : null
+      }
+    };
+  }
+
+  /** Remplace intégralement le programme par celui reçu. */
+  function importReplace(src) {
+    state = {
+      version: 1,
+      trip: clone(src.trip || state.trip),
+      days: clone(src.days)
+    };
+    state.days.forEach(sortActivities);
+    sortDays();
+    save();
+    return state;
+  }
+
+  /**
+   * Ne reprend que les notes personnelles, appariées par identifiant d'activité.
+   * Une note déjà présente localement n'est jamais écrasée : la note reçue est
+   * ajoutée à la suite.
+   * @returns {number} nombre d'activités enrichies
+   */
+  function importNotes(src) {
+    const recues = new Map();
+    src.days.forEach((d) =>
+      d.activities.forEach((a) => {
+        if ((a.notes || '').trim()) recues.set(a.id, a.notes.trim());
+      })
+    );
+
+    let n = 0;
+    state.days.forEach((d) =>
+      d.activities.forEach((a) => {
+        const recue = recues.get(a.id);
+        if (!recue) return;
+        const locale = (a.notes || '').trim();
+        if (!locale) {
+          a.notes = recue;
+          n++;
+        } else if (!locale.includes(recue)) {
+          a.notes = locale + '\n\n— Reçu de l’autre téléphone :\n' + recue;
+          n++;
+        }
+      })
+    );
+    if (n) save();
+    return n;
+  }
+
+  /* ---------- lecture ---------- */
+
+  const getState = () => state;
+  const getDays = () => state.days;
+  const getDay = (dayId) => state.days.find((d) => d.id === dayId) || null;
+
+  function getActivity(dayId, actId) {
+    const day = getDay(dayId);
+    if (!day) return null;
+    const activity = day.activities.find((a) => a.id === actId) || null;
+    return activity ? { day, activity } : null;
+  }
+
+  /* ---------- écriture : voyage ---------- */
+
+  /** Met à jour les informations générales du séjour (titre, notes pratiques…). */
+  function updateTrip(patch) {
+    Object.assign(state.trip, patch);
+    save();
+    return state.trip;
+  }
+
+  /* ---------- écriture : jours ---------- */
+
+  function updateDay(dayId, patch) {
+    const day = getDay(dayId);
+    if (!day) return null;
+    Object.assign(day, patch);
+    sortDays();
+    save();
+    return day;
+  }
+
+  /* ---------- écriture : activités ---------- */
+
+  function updateActivity(dayId, actId, patch) {
+    const found = getActivity(dayId, actId);
+    if (!found) return null;
+    Object.assign(found.activity, patch);
+    sortActivities(found.day);
+    save();
+    return found.activity;
+  }
+
+  function addActivity(dayId, data) {
+    const day = getDay(dayId);
+    if (!day) return null;
+    const activity = Object.assign(
+      {
+        id: uid('act'),
+        time: '12:00',
+        duration: 60,
+        type: 'visite',
+        title: 'Nouvelle activité',
+        description: '',
+        details: '',
+        address: '',
+        links: [],
+        comments: '',
+        notes: ''
+      },
+      data || {}
+    );
+    day.activities.push(activity);
+    sortActivities(day);
+    save();
+    return activity;
+  }
+
+  function removeActivity(dayId, actId) {
+    const day = getDay(dayId);
+    if (!day) return false;
+    const i = day.activities.findIndex((a) => a.id === actId);
+    if (i === -1) return false;
+    day.activities.splice(i, 1);
+    save();
+    return true;
+  }
+
+  /**
+   * Déplace une activité vers un autre jour (utilisé quand on change la date
+   * d'une activité depuis la fiche détail).
+   */
+  function moveActivity(fromDayId, actId, toDayId) {
+    if (fromDayId === toDayId) return true;
+    const from = getDay(fromDayId);
+    const to = getDay(toDayId);
+    if (!from || !to) return false;
+    const i = from.activities.findIndex((a) => a.id === actId);
+    if (i === -1) return false;
+    const [activity] = from.activities.splice(i, 1);
+    to.activities.push(activity);
+    sortActivities(to);
+    save();
+    return true;
+  }
+
+  /* ---------- écriture : liens ---------- */
+
+  function addLink(dayId, actId, link) {
+    const found = getActivity(dayId, actId);
+    if (!found) return null;
+    if (!Array.isArray(found.activity.links)) found.activity.links = [];
+    found.activity.links.push({ label: link.label || link.url, url: link.url });
+    save();
+    return found.activity.links;
+  }
+
+  function updateLink(dayId, actId, index, link) {
+    const found = getActivity(dayId, actId);
+    if (!found || !found.activity.links[index]) return null;
+    Object.assign(found.activity.links[index], link);
+    save();
+    return found.activity.links;
+  }
+
+  function removeLink(dayId, actId, index) {
+    const found = getActivity(dayId, actId);
+    if (!found || !found.activity.links[index]) return null;
+    found.activity.links.splice(index, 1);
+    save();
+    return found.activity.links;
+  }
+
+  return {
+    load, save, reset,
+    exportText, parseImport, importReplace, importNotes,
+    getState, getDays, getDay, getActivity,
+    updateTrip, updateDay,
+    addActivity, updateActivity, removeActivity, moveActivity,
+    addLink, updateLink, removeLink,
+    minutes, uid
+  };
+})();
+
+
+/* =====================================================================
+   app.js — Routage par ancre, rendu des trois écrans, édition
+     #/                       Accueil (synthèse jour 1 → jour n)
+     #/jour/:dayId            Détail du jour (activités, chronologique)
+     #/jour/:dayId/:actId     Détail de l'activité
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   Utilitaires
+   ------------------------------------------------------------------ */
+
+const $ = (sel, root = document) => root.querySelector(sel);
+
+const esc = (s) =>
+  String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+const JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet',
+              'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+
+const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
+/** '2026-10-05' → 'Lundi 5 octobre 2026' (lower = true : 'lundi 5 octobre 2026') */
+function fmtDate(iso, withYear = true, lower = false) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  if (!m) return iso || '';
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const jour = lower ? JOURS[d.getDay()] : cap(JOURS[d.getDay()]);
+  return `${jour} ${d.getDate()} ${MOIS[d.getMonth()]}${withYear ? ' ' + m[1] : ''}`;
+}
+
+/** '2026-10-05' → 'lun. 5 oct.' */
+function fmtDateShort(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  if (!m) return iso || '';
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return `${JOURS[d.getDay()].slice(0, 3)}. ${d.getDate()} ${MOIS[d.getMonth()].slice(0, 4)}.`;
+}
+
+/** 100 → '1 h 40' ; 45 → '45 min' */
+function fmtDuration(min) {
+  const n = Number(min);
+  if (!n || n <= 0) return '—';
+  const h = Math.floor(n / 60);
+  const r = n % 60;
+  if (!h) return `${r} min`;
+  return r ? `${h} h ${String(r).padStart(2, '0')}` : `${h} h`;
+}
+
+/** '15:30' + 90 → '17:00' */
+function endTime(time, duration) {
+  const start = Store.minutes(time);
+  const n = Number(duration);
+  if (start >= 99999 || !n) return '';
+  const t = (start + n) % 1440;
+  return `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}`;
+}
+
+const typeOf = (key) => TYPES[key] || { label: 'Activité', icon: '📍', color: 'var(--muted)' };
+
+const mapsSearchUrl = (address) =>
+  'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address + ', Budapest');
+
+const mapsTransitUrl = (address) =>
+  'https://www.google.com/maps/dir/?api=1&travelmode=transit&destination=' +
+  encodeURIComponent(address + ', Budapest');
+
+/** Complète une URL saisie sans protocole. */
+function normalizeUrl(url) {
+  const u = (url || '').trim();
+  if (!u) return '';
+  if (/^https?:\/\//i.test(u) || /^(mailto|tel):/i.test(u)) return u;
+  return 'https://' + u.replace(/^\/+/, '');
+}
+
+const prettyUrl = (url) => (url || '').replace(/^https?:\/\//i, '').replace(/\/$/, '');
+
+/* ---------------------------------------------------------------------
+   Toast
+   ------------------------------------------------------------------ */
+
+let toastTimer = null;
+function toast(message) {
+  const el = $('#toast');
+  el.textContent = message;
+  el.classList.add('is-visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('is-visible'), 2200);
+}
+
+/* ---------------------------------------------------------------------
+   Feuille modale (formulaires)
+   ------------------------------------------------------------------ */
+
+/**
+ * Ouvre une feuille de saisie.
+ * @param {string} title  Titre affiché
+ * @param {string} bodyHtml  Contenu du formulaire
+ * @param {object} opts  { okLabel, onOk(form) -> bool|undefined, onOpen(form) }
+ */
+function openSheet(title, bodyHtml, opts = {}) {
+  const dlg = $('#sheet');
+  dlg.innerHTML = `
+    <form method="dialog" id="sheet-form">
+      <div class="sheet__head">
+        <span class="sheet__title">${esc(title)}</span>
+        <button type="button" class="iconbtn" data-close aria-label="Fermer">✕</button>
+      </div>
+      <div class="sheet__body">${bodyHtml}</div>
+      <div class="sheet__foot">
+        ${opts.hideCancel ? '' : '<button type="button" class="btn" data-close>Annuler</button>'}
+        <button type="button" class="btn btn--primary" data-ok>${esc(opts.okLabel || 'Enregistrer')}</button>
+      </div>
+    </form>`;
+
+  const form = $('#sheet-form', dlg);
+  dlg.querySelectorAll('[data-close]').forEach((b) =>
+    b.addEventListener('click', () => dlg.close())
+  );
+  $('[data-ok]', dlg).addEventListener('click', () => {
+    if (opts.onOk && opts.onOk(form) === false) return; // validation échouée
+    dlg.close();
+  });
+
+  dlg.showModal();
+  if (opts.onOpen) opts.onOpen(form);
+  const first = form.querySelector('input, select, textarea');
+  if (first && !opts.noFocus) first.focus();
+}
+
+const val = (form, name) => {
+  const el = form.elements[name];
+  return el ? el.value.trim() : '';
+};
+
+/* ---------------------------------------------------------------------
+   Barre d'application
+   ------------------------------------------------------------------ */
+
+function renderAppbar({ title, subtitle, backHref, action }) {
+  return `
+    <header class="appbar">
+      ${backHref
+        ? `<a class="appbar__back" href="${backHref}" aria-label="Retour">‹</a>`
+        : `<span class="appbar__back" aria-hidden="true">🗺️</span>`}
+      <div class="appbar__titles">
+        <div class="appbar__title">${esc(title)}</div>
+        ${subtitle ? `<div class="appbar__sub">${esc(subtitle)}</div>` : ''}
+      </div>
+      ${action
+        ? `<button class="appbar__action" id="${action.id}">${esc(action.label)}</button>`
+        : ''}
+    </header>`;
+}
+
+/* ---------------------------------------------------------------------
+   Écran 1 — Accueil
+   ------------------------------------------------------------------ */
+
+function viewHome() {
+  const state = Store.getState();
+  const days = Store.getDays();
+
+  const cards = days.map((day, i) => {
+    const acts = day.activities;
+    // Résumé : les types présents dans la journée, sans doublon
+    const seen = [];
+    acts.forEach((a) => { if (!seen.includes(a.type)) seen.push(a.type); });
+    const chips = seen.map((t) => {
+      const T = typeOf(t);
+      return `<span class="chip">${T.icon} ${esc(T.label)}</span>`;
+    }).join('');
+
+    const first = acts[0];
+    const last = acts[acts.length - 1];
+    const plage = first && last ? `${first.time} → ${endTime(last.time, last.duration) || last.time}` : '';
+
+    return `
+      <button class="daycard" data-goto="#/jour/${day.id}">
+        <div class="daycard__head">
+          <span class="daycard__num">Jour ${i + 1}</span>
+          <span class="daycard__date">${esc(fmtDate(day.date, false))}</span>
+          <span class="daycard__chevron">›</span>
+        </div>
+        <div class="daycard__sub">
+          ${day.title ? esc(day.title) + ' · ' : ''}${acts.length} activité${acts.length > 1 ? 's' : ''}${plage ? ' · ' + plage : ''}
+        </div>
+        <div class="daycard__chips">${chips}</div>
+      </button>`;
+  }).join('');
+
+  const notes = (state.trip.notes || [])
+    .map((n) => `<li>${esc(n)}</li>`).join('');
+
+  return renderAppbar({
+    title: state.trip.title,
+    subtitle: state.trip.subtitle,
+    action: { id: 'btn-menu', label: 'Options' }
+  }) + `
+    <main>
+      <div id="install-slot"></div>
+
+      <section class="hero">
+        <h1 class="hero__title">${esc(state.trip.title)}</h1>
+        <div class="hero__dates">
+          Du ${esc(fmtDate(state.trip.startDate, false, true))} au ${esc(fmtDate(state.trip.endDate, true, true))}
+          · ${days.length} jours
+        </div>
+        ${state.trip.hotel ? `<div class="hero__meta">🛏️ ${esc(state.trip.hotel)}</div>` : ''}
+      </section>
+
+      <h2 class="section-title">Programme jour par jour</h2>
+      ${cards}
+
+      <div class="section-head">
+        <h2 class="section-title">Notes pratiques</h2>
+        <button class="btn btn--ghost btn--sm" id="btn-notes">
+          ${notes ? 'Modifier' : '+ Ajouter'}
+        </button>
+      </div>
+      <div class="card card--muted">
+        ${notes
+          ? `<ul class="notes-list">${notes}</ul>`
+          : '<p class="empty">Aucune note pour le moment. Hôtel, vols, numéros utiles, adresses de secours…</p>'}
+      </div>
+    </main>`;
+}
+
+function bindHome() {
+  $('#btn-menu')?.addEventListener('click', openOptions);
+  $('#btn-notes')?.addEventListener('click', openNotesForm);
+}
+
+/** Édition des notes pratiques : une ligne = une note. */
+function openNotesForm() {
+  const trip = Store.getState().trip;
+
+  openSheet('Notes pratiques', `
+    <div class="field">
+      <label for="f-notes">Une note par ligne</label>
+      <textarea id="f-notes" name="notes" rows="10"
+                placeholder="Hôtel : …&#10;Vols : …&#10;Numéro de la compagnie : …">${esc((trip.notes || []).join('\n'))}</textarea>
+      <div class="hint">Les lignes vides sont ignorées. Chaque ligne apparaît comme
+      une puce sur l’accueil.</div>
+    </div>`, {
+    okLabel: 'Enregistrer',
+    onOk: (form) => {
+      const notes = val(form, 'notes')
+        .split('\n')
+        .map((l) => l.trim())
+        .filter(Boolean);
+      Store.updateTrip({ notes });
+      render();
+      toast(notes.length ? 'Notes enregistrées' : 'Notes effacées');
+    }
+  });
+}
+
+function openOptions() {
+  openSheet('Options', `
+    <div class="field">
+      <label for="opt-theme">Apparence</label>
+      <select id="opt-theme" name="theme">
+        <option value="auto">Automatique (système)</option>
+        <option value="light">Clair</option>
+        <option value="dark">Sombre</option>
+      </select>
+    </div>
+    <div class="card card--muted" style="margin-top:14px">
+      <div class="card__label">Envoyer vers un autre téléphone</div>
+      <p class="body-text">Le programme complet, avec vos modifications et vos notes.</p>
+      <button type="button" class="btn btn--block" id="opt-share"
+              style="margin-top:10px">📤 Partager le fichier</button>
+      <button type="button" class="btn btn--block" id="opt-copy"
+              style="margin-top:8px">📋 Copier le programme</button>
+      <div class="hint">Le fichier obtenu peut aussi être déposé sur GitHub pour
+      devenir le programme de référence.</div>
+    </div>
+
+    <div class="card card--muted" style="margin-top:10px">
+      <div class="card__label">Recevoir d’un autre téléphone</div>
+      <input type="file" id="opt-file" accept="application/json,.json" hidden>
+      <button type="button" class="btn btn--block" id="opt-open">📂 Ouvrir un fichier reçu</button>
+      <button type="button" class="btn btn--block" id="opt-paste"
+              style="margin-top:8px">📋 Coller un programme</button>
+    </div>
+
+    <div class="card card--muted" style="margin-top:10px">
+      <div class="card__label">Réinitialiser</div>
+      <p class="body-text">Efface toutes vos modifications et restaure le programme d’origine
+      issu du document de voyage.</p>
+      <button type="button" class="btn btn--danger btn--block" id="opt-reset"
+              style="margin-top:10px">Restaurer le programme d’origine</button>
+    </div>
+
+    <p class="hint" style="margin-top:14px">
+      Vos modifications sont enregistrées uniquement sur cet appareil. L’application
+      fonctionne sans connexion internet.
+    </p>`, {
+    okLabel: 'Fermer',
+    hideCancel: true,
+    noFocus: true,
+    onOpen: (form) => {
+      form.elements.theme.value = localStorage.getItem('voyage-app::theme') || 'auto';
+      form.elements.theme.addEventListener('change', (e) => applyTheme(e.target.value));
+
+      $('#opt-share', form).addEventListener('click', shareProgramme);
+      $('#opt-copy', form).addEventListener('click', copyProgramme);
+
+      const file = $('#opt-file', form);
+      $('#opt-open', form).addEventListener('click', () => file.click());
+      file.addEventListener('change', async () => {
+        const f = file.files && file.files[0];
+        if (!f) return;
+        handleImport(await f.text());
+        file.value = '';
+      });
+
+      $('#opt-paste', form).addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (text) handleImport(text);
+          else toast('Presse-papiers vide');
+        } catch {
+          toast('Lecture du presse-papiers refusée — utilisez « Ouvrir un fichier »');
+        }
+      });
+
+      $('#opt-reset', form).addEventListener('click', () => {
+        if (!confirm('Restaurer le programme d’origine ? Toutes vos modifications et notes seront perdues.')) return;
+        Store.reset();
+        $('#sheet').close();
+        render();
+        toast('Programme d’origine restauré');
+      });
+    },
+    onOk: () => {}
+  });
+}
+
+/* ---------------------------------------------------------------------
+   Transfert du programme d'un téléphone à l'autre
+   ------------------------------------------------------------------ */
+
+function exportFileName() {
+  const d = new Date().toISOString().slice(0, 10);
+  return `budapest-programme-${d}.json`;
+}
+
+/** Partage le programme via la feuille de partage du téléphone, sinon le télécharge. */
+async function shareProgramme() {
+  const text = Store.exportText();
+  const name = exportFileName();
+
+  try {
+    const file = new File([text], name, { type: 'application/json' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Programme Budapest' });
+      return;
+    }
+  } catch (e) {
+    if (e && e.name === 'AbortError') return; // partage annulé par l'utilisateur
+  }
+
+  try {
+    const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    // Certains navigateurs intégrés (messageries, aperçus) ignorent silencieusement
+    // le téléchargement : on ne peut pas le savoir ici, d'où la formulation prudente.
+    toast('Export lancé — si rien ne se passe, utilisez « Copier le programme »');
+  } catch {
+    toast('Partage indisponible ici — utilisez « Copier le programme »');
+  }
+}
+
+async function copyProgramme() {
+  const text = Store.exportText();
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Programme copié — collez-le dans un message');
+  } catch {
+    toast('Copie refusée par le navigateur');
+  }
+}
+
+/** Analyse un contenu reçu, puis demande quoi en faire. */
+function handleImport(text) {
+  const res = Store.parseImport(text);
+  if (!res.ok) { alert(res.error); return; }
+
+  const r = res.resume;
+  const origine = r.date ? `\nExporté le ${fmtDate(r.date)}.` : '';
+  const message =
+    `Programme reçu : « ${r.titre} »\n` +
+    `${r.jours} jours, ${r.activites} activités, ${r.notes} note(s) personnelle(s).${origine}\n\n` +
+    `OK  →  remplacer tout votre programme par celui-ci.\n` +
+    `Annuler  →  ne reprendre que les notes personnelles, en gardant votre programme.`;
+
+  if (confirm(message)) {
+    Store.importReplace(res.data);
+    $('#sheet').close();
+    render();
+    toast('Programme remplacé');
+  } else {
+    const n = Store.importNotes(res.data);
+    $('#sheet').close();
+    render();
+    toast(n ? `${n} note(s) reprise(s)` : 'Aucune note à reprendre');
+  }
+}
+
+function applyTheme(mode) {
+  localStorage.setItem('voyage-app::theme', mode);
+  if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', mode);
+}
+
+/* ---------------------------------------------------------------------
+   Écran 2 — Détail du jour
+   ------------------------------------------------------------------ */
+
+function viewDay(dayId) {
+  const day = Store.getDay(dayId);
+  if (!day) return viewNotFound();
+
+  const index = Store.getDays().indexOf(day) + 1;
+
+  const rows = day.activities.map((a) => {
+    const T = typeOf(a.type);
+    const fin = endTime(a.time, a.duration);
+    return `
+      <article class="act" style="--type-color:${T.color}">
+        <div class="act__main">
+          <div class="act__time">
+            <div class="act__hour">${esc(a.time)}</div>
+            <div class="act__dur">${esc(fmtDuration(a.duration))}</div>
+            ${fin ? `<div class="act__dur">→ ${esc(fin)}</div>` : ''}
+          </div>
+          <div class="act__rule"></div>
+          <div class="act__body">
+            <div class="act__type">${T.icon} ${esc(T.label)}</div>
+            <h3 class="act__title">${esc(a.title)}</h3>
+            ${a.description ? `<div class="act__desc">${esc(a.description)}</div>` : ''}
+            ${a.address ? `<div class="act__addr"><span>📍</span><span>${esc(a.address)}</span></div>` : ''}
+          </div>
+        </div>
+        <div class="act__actions">
+          <button class="btn btn--primary" data-goto="#/jour/${day.id}/${a.id}">Détail</button>
+          <button class="btn" data-edit="${a.id}">Modifier</button>
+          <button class="btn btn--danger" data-del="${a.id}">Supprimer</button>
+        </div>
+      </article>`;
+  }).join('');
+
+  return renderAppbar({
+    title: fmtDate(day.date, false),
+    subtitle: `Jour ${index}` + (day.title ? ' · ' + day.title : '') +
+              ` · ${day.activities.length} activité${day.activities.length > 1 ? 's' : ''}`,
+    backHref: '#/',
+    action: { id: 'btn-add', label: '+ Activité' }
+  }) + `
+    <main>
+      <h2 class="section-title">Déroulé de la journée</h2>
+      ${rows || '<p class="empty">Aucune activité pour ce jour. Utilisez « + Activité » pour en ajouter une.</p>'}
+      <button class="btn btn--lg btn--block" id="btn-add-bottom" style="margin-top:14px">
+        + Ajouter une activité
+      </button>
+    </main>`;
+}
+
+function bindDay(dayId) {
+  const add = () => openActivityForm(dayId, null);
+  $('#btn-add')?.addEventListener('click', add);
+  $('#btn-add-bottom')?.addEventListener('click', add);
+
+  document.querySelectorAll('[data-edit]').forEach((b) =>
+    b.addEventListener('click', () => openActivityForm(dayId, b.dataset.edit))
+  );
+
+  document.querySelectorAll('[data-del]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const found = Store.getActivity(dayId, b.dataset.del);
+      if (!found) return;
+      if (!confirm(`Supprimer « ${found.activity.title} » ?`)) return;
+      Store.removeActivity(dayId, b.dataset.del);
+      render();
+      toast('Activité supprimée');
+    })
+  );
+}
+
+/* ---------------------------------------------------------------------
+   Formulaire d'activité (création / modification)
+   ------------------------------------------------------------------ */
+
+function openActivityForm(dayId, actId) {
+  const found = actId ? Store.getActivity(dayId, actId) : null;
+  const a = found ? found.activity : null;
+
+  const currentType = a ? a.type : 'visite'; // type par défaut à la création
+  const typeOptions = Object.entries(TYPES).map(([key, T]) =>
+    `<option value="${key}"${currentType === key ? ' selected' : ''}>${T.icon} ${esc(T.label)}</option>`
+  ).join('');
+
+  const dayOptions = Store.getDays().map((d, i) =>
+    `<option value="${d.id}"${d.id === dayId ? ' selected' : ''}>Jour ${i + 1} — ${esc(fmtDate(d.date, false))}</option>`
+  ).join('');
+
+  openSheet(a ? 'Modifier l’activité' : 'Nouvelle activité', `
+    <div class="field">
+      <label for="f-title">Intitulé</label>
+      <input id="f-title" name="title" type="text" value="${esc(a ? a.title : '')}"
+             placeholder="Ex. Bains Széchenyi">
+    </div>
+
+    <div class="field">
+      <label for="f-day">Jour</label>
+      <select id="f-day" name="day">${dayOptions}</select>
+    </div>
+
+    <div class="field field--split">
+      <div>
+        <label for="f-time">Horaire</label>
+        <input id="f-time" name="time" type="time" value="${esc(a ? a.time : '12:00')}">
+      </div>
+      <div>
+        <label for="f-duration">Durée (min)</label>
+        <input id="f-duration" name="duration" type="number" min="0" step="5"
+               value="${esc(a ? a.duration : 60)}">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-type">Type d’activité</label>
+      <select id="f-type" name="type">${typeOptions}</select>
+    </div>
+
+    <div class="field">
+      <label for="f-description">Description courte</label>
+      <input id="f-description" name="description" type="text"
+             value="${esc(a ? a.description : '')}"
+             placeholder="Une ligne, affichée dans le programme du jour">
+    </div>
+
+    <div class="field">
+      <label for="f-address">Adresse</label>
+      <input id="f-address" name="address" type="text" value="${esc(a ? a.address : '')}"
+             placeholder="Rue, code postal, ville">
+    </div>
+
+    <div class="field">
+      <label for="f-details">Description détaillée</label>
+      <textarea id="f-details" name="details"
+                placeholder="Ce qu’il faut savoir, ce qu’on y voit…">${esc(a ? a.details : '')}</textarea>
+    </div>
+
+    <div class="field">
+      <label for="f-comments">Commentaires et précisions</label>
+      <textarea id="f-comments" name="comments"
+                placeholder="Horaires, réservation, à prévoir…">${esc(a ? a.comments : '')}</textarea>
+    </div>`, {
+    okLabel: a ? 'Enregistrer' : 'Ajouter',
+    onOk: (form) => {
+      const title = val(form, 'title');
+      if (!title) { toast('L’intitulé est obligatoire'); return false; }
+
+      const patch = {
+        title,
+        time: val(form, 'time') || '12:00',
+        duration: Number(val(form, 'duration')) || 0,
+        type: val(form, 'type'),
+        description: val(form, 'description'),
+        address: val(form, 'address'),
+        details: val(form, 'details'),
+        comments: val(form, 'comments')
+      };
+      const targetDay = val(form, 'day');
+
+      if (a) {
+        Store.updateActivity(dayId, a.id, patch);
+        if (targetDay !== dayId) {
+          Store.moveActivity(dayId, a.id, targetDay);
+          // La fiche a changé de jour : on suit l'activité si on était dessus
+          if (location.hash.includes(a.id)) location.hash = `#/jour/${targetDay}/${a.id}`;
+          else render();
+          toast('Activité déplacée au ' + fmtDateShort(Store.getDay(targetDay).date));
+          return;
+        }
+        toast('Activité mise à jour');
+      } else {
+        Store.addActivity(targetDay, patch);
+        toast('Activité ajoutée');
+      }
+      render();
+    }
+  });
+}
+
+/* ---------------------------------------------------------------------
+   Écran 3 — Détail de l'activité
+   ------------------------------------------------------------------ */
+
+function viewActivity(dayId, actId) {
+  const found = Store.getActivity(dayId, actId);
+  if (!found) return viewNotFound();
+
+  const { day, activity: a } = found;
+  const T = typeOf(a.type);
+  const fin = endTime(a.time, a.duration);
+
+  const links = (a.links || []).map((l, i) => `
+    <div class="linkrow">
+      <a class="linkrow__go" href="${esc(normalizeUrl(l.url))}" target="_blank" rel="noopener noreferrer">
+        <div class="linkrow__label">🔗 ${esc(l.label || prettyUrl(l.url))}</div>
+        <div class="linkrow__url">${esc(prettyUrl(l.url))}</div>
+      </a>
+      <button class="iconbtn" data-link-edit="${i}" aria-label="Modifier le lien">✎</button>
+      <button class="iconbtn" data-link-del="${i}" aria-label="Supprimer le lien">🗑</button>
+    </div>`).join('');
+
+  return renderAppbar({
+    title: a.title,
+    subtitle: `${fmtDate(day.date, false)} · ${a.time}`,
+    backHref: `#/jour/${day.id}`,
+    action: { id: 'btn-edit', label: 'Modifier' }
+  }) + `
+    <main>
+      <section class="detail-head" style="--type-color:${T.color}">
+        <span class="detail-head__type">${T.icon} ${esc(T.label)}</span>
+        <h1 class="detail-head__title">${esc(a.title)}</h1>
+        <div class="detail-head__when">
+          🕒 ${esc(a.time)}${fin ? ' – ' + esc(fin) : ''} · ${esc(fmtDuration(a.duration))}
+          <br>📅 ${esc(fmtDate(day.date))}
+        </div>
+      </section>
+
+      ${a.details || a.description ? `
+        <h2 class="section-title">Description</h2>
+        <div class="card"><p class="body-text">${esc(a.details || a.description).replace(/\n/g, '<br>')}</p></div>
+      ` : ''}
+
+      <h2 class="section-title">Adresse & itinéraire</h2>
+      <div class="card">
+        <p class="body-text">📍 ${a.address ? esc(a.address) : '<span class="empty">Aucune adresse renseignée</span>'}</p>
+        ${a.address ? `
+          <div class="btn-row" style="margin-top:12px">
+            <a class="btn btn--primary" style="text-decoration:none;text-align:center"
+               href="${esc(mapsSearchUrl(a.address))}" target="_blank" rel="noopener noreferrer">Google Maps</a>
+            <a class="btn" style="text-decoration:none;text-align:center"
+               href="${esc(mapsTransitUrl(a.address))}" target="_blank" rel="noopener noreferrer">Itinéraire</a>
+          </div>` : ''}
+      </div>
+
+      <h2 class="section-title">Liens</h2>
+      <div class="card">
+        <div class="linklist">
+          ${links || '<p class="empty">Aucun lien pour le moment.</p>'}
+        </div>
+        <button class="btn btn--block" id="btn-link-add" style="margin-top:12px">+ Ajouter un lien</button>
+      </div>
+
+      ${a.comments ? `
+        <h2 class="section-title">Commentaires et précisions</h2>
+        <div class="card card--muted"><p class="body-text">${esc(a.comments).replace(/\n/g, '<br>')}</p></div>
+      ` : ''}
+
+      <h2 class="section-title">Mes notes</h2>
+      <div class="card">
+        <div class="field">
+          <label for="user-notes">Commentaires ou informations additionnelles</label>
+          <textarea id="user-notes" placeholder="Réservation n°…, ce qu’on a aimé, à refaire…">${esc(a.notes)}</textarea>
+          <div class="hint" id="notes-status">Enregistrement automatique sur cet appareil.</div>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:16px">
+        <button class="btn btn--lg" id="btn-edit-bottom">Modifier l’activité</button>
+        <button class="btn btn--lg btn--danger" id="btn-delete">Supprimer</button>
+      </div>
+    </main>`;
+}
+
+function bindActivity(dayId, actId) {
+  const edit = () => openActivityForm(dayId, actId);
+  $('#btn-edit')?.addEventListener('click', edit);
+  $('#btn-edit-bottom')?.addEventListener('click', edit);
+
+  $('#btn-delete')?.addEventListener('click', () => {
+    const found = Store.getActivity(dayId, actId);
+    if (!found) return;
+    if (!confirm(`Supprimer « ${found.activity.title} » ?`)) return;
+    Store.removeActivity(dayId, actId);
+    location.hash = `#/jour/${dayId}`;
+    toast('Activité supprimée');
+  });
+
+  /* --- liens --- */
+  $('#btn-link-add')?.addEventListener('click', () => openLinkForm(dayId, actId, null));
+
+  document.querySelectorAll('[data-link-edit]').forEach((b) =>
+    b.addEventListener('click', () => openLinkForm(dayId, actId, Number(b.dataset.linkEdit)))
+  );
+
+  document.querySelectorAll('[data-link-del]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const i = Number(b.dataset.linkDel);
+      const found = Store.getActivity(dayId, actId);
+      const link = found && found.activity.links[i];
+      if (!link) return;
+      if (!confirm(`Supprimer le lien « ${link.label || link.url} » ?`)) return;
+      Store.removeLink(dayId, actId, i);
+      render();
+      toast('Lien supprimé');
+    })
+  );
+
+  /* --- zone de saisie libre, sauvegarde automatique --- */
+  const ta = $('#user-notes');
+  if (ta) {
+    let t = null;
+    const status = $('#notes-status');
+    ta.addEventListener('input', () => {
+      clearTimeout(t);
+      status.textContent = 'Saisie en cours…';
+      t = setTimeout(() => {
+        Store.updateActivity(dayId, actId, { notes: ta.value });
+        status.textContent = 'Enregistré ✓';
+      }, 500);
+    });
+    ta.addEventListener('blur', () => {
+      clearTimeout(t);
+      Store.updateActivity(dayId, actId, { notes: ta.value });
+      status.textContent = 'Enregistré ✓';
+    });
+  }
+}
+
+function openLinkForm(dayId, actId, index) {
+  const found = Store.getActivity(dayId, actId);
+  if (!found) return;
+  const existing = index != null ? found.activity.links[index] : null;
+
+  openSheet(existing ? 'Modifier le lien' : 'Ajouter un lien', `
+    <div class="field">
+      <label for="f-url">Adresse du lien</label>
+      <input id="f-url" name="url" type="url" inputmode="url" autocomplete="off"
+             value="${esc(existing ? existing.url : '')}" placeholder="https://…">
+      <button type="button" class="btn btn--block" id="btn-paste" style="margin-top:8px">
+        📋 Coller depuis le presse-papiers
+      </button>
+      <div class="hint">Le « https:// » est ajouté automatiquement si vous l’oubliez.</div>
+    </div>
+    <div class="field">
+      <label for="f-label">Libellé affiché</label>
+      <input id="f-label" name="label" type="text" value="${esc(existing ? existing.label : '')}"
+             placeholder="Ex. Site officiel, Réservation, Avis…">
+    </div>`, {
+    okLabel: existing ? 'Enregistrer' : 'Ajouter',
+    onOpen: (form) => {
+      $('#btn-paste', form).addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          if (text) {
+            form.elements.url.value = text.trim();
+            toast('Lien collé');
+          } else toast('Presse-papiers vide');
+        } catch {
+          toast('Collage refusé — utilisez un appui long dans le champ');
+        }
+      });
+    },
+    onOk: (form) => {
+      const url = normalizeUrl(val(form, 'url'));
+      if (!url) { toast('L’adresse du lien est obligatoire'); return false; }
+      const label = val(form, 'label') || prettyUrl(url);
+      if (existing) Store.updateLink(dayId, actId, index, { url, label });
+      else Store.addLink(dayId, actId, { url, label });
+      render();
+      toast(existing ? 'Lien mis à jour' : 'Lien ajouté');
+    }
+  });
+}
+
+/* ---------------------------------------------------------------------
+   Écran d'erreur
+   ------------------------------------------------------------------ */
+
+function viewNotFound() {
+  return renderAppbar({ title: 'Introuvable', backHref: '#/' }) + `
+    <main>
+      <div class="card">
+        <p class="body-text">Cette page n’existe plus — l’élément a peut-être été supprimé.</p>
+        <a class="btn btn--primary btn--block" style="text-decoration:none;margin-top:12px" href="#/">
+          Retour à l’accueil
+        </a>
+      </div>
+    </main>`;
+}
+
+/* ---------------------------------------------------------------------
+   Routage
+   ------------------------------------------------------------------ */
+
+function parseRoute() {
+  const raw = (location.hash || '#/').replace(/^#\/?/, '');
+  const parts = raw.split('/').filter(Boolean);
+  if (parts[0] === 'jour' && parts[1]) {
+    return { name: parts[2] ? 'activity' : 'day', dayId: parts[1], actId: parts[2] };
+  }
+  return { name: 'home' };
+}
+
+function render() {
+  const route = parseRoute();
+  const root = $('#app');
+
+  if (route.name === 'day') {
+    root.innerHTML = viewDay(route.dayId);
+    bindDay(route.dayId);
+  } else if (route.name === 'activity') {
+    root.innerHTML = viewActivity(route.dayId, route.actId);
+    bindActivity(route.dayId, route.actId);
+  } else {
+    root.innerHTML = viewHome();
+    bindHome();
+    renderInstallBanner();
+  }
+
+  // Navigation depuis n'importe quel élément porteur de data-goto
+  root.querySelectorAll('[data-goto]').forEach((el) =>
+    el.addEventListener('click', () => { location.hash = el.dataset.goto; })
+  );
+
+  window.scrollTo(0, 0);
+}
+
+/* ---------------------------------------------------------------------
+   Installation sur l'écran d'accueil
+   ------------------------------------------------------------------ */
+
+let deferredInstall = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstall = e;
+  renderInstallBanner();
+});
+
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+function renderInstallBanner() {
+  const slot = $('#install-slot');
+  if (!slot || isStandalone()) return;
+  if (localStorage.getItem('voyage-app::install-dismissed') === '1') return;
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (deferredInstall) {
+    slot.innerHTML = `
+      <div class="install-banner">
+        <p><strong>Installer l’application</strong><br>Accès direct depuis l’écran d’accueil, même sans réseau.</p>
+        <button class="btn btn--primary" id="btn-install">Installer</button>
+        <button class="iconbtn" id="btn-install-x" aria-label="Masquer">✕</button>
+      </div>`;
+    $('#btn-install').addEventListener('click', async () => {
+      deferredInstall.prompt();
+      await deferredInstall.userChoice;
+      deferredInstall = null;
+      slot.innerHTML = '';
+    });
+  } else if (isIOS) {
+    slot.innerHTML = `
+      <div class="install-banner">
+        <p><strong>Ajouter à l’écran d’accueil</strong><br>
+        Bouton <em>Partager</em> ⬆️ puis « Sur l’écran d’accueil ».</p>
+        <button class="iconbtn" id="btn-install-x" aria-label="Masquer">✕</button>
+      </div>`;
+  } else {
+    return;
+  }
+
+  $('#btn-install-x')?.addEventListener('click', () => {
+    localStorage.setItem('voyage-app::install-dismissed', '1');
+    slot.innerHTML = '';
+  });
+}
+
+/* ---------------------------------------------------------------------
+   Démarrage
+   ------------------------------------------------------------------ */
+
+applyTheme(localStorage.getItem('voyage-app::theme') || 'auto');
+Store.load();
+window.addEventListener('hashchange', render);
+render();
+
+/* Version fichier unique : pas de service worker. */
+
+</script>
+</body>
+</html>
